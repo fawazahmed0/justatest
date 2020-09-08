@@ -38,7 +38,7 @@ jobs:
           git sparse-checkout add "New folder"
           git checkout
           ls
-          touch magg
+          touch toss
           git add -A
           git commit -m "hello"
           git push
