@@ -42,7 +42,12 @@ jobs:
           git add -A
           git commit -m "hello"
           git push
-
+          echo hello > path/to/artifact/world.txt
+      
+      - uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: path/to/artifact/world.txt
 
 
 
