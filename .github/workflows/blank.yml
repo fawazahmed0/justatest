@@ -38,10 +38,10 @@ jobs:
           git sparse-checkout add "New folder"
           git checkout
           ls
-#          touch mess
-#          git add -A
-#          git commit -m "hello"
-#          git push
+          touch jbl
+          git add -A
+          git commit -m "artifcat"
+          git push
           mkdir -p path/to/artifact
           echo hello > path/to/artifact/world.txt
 
