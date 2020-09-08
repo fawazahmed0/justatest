@@ -42,13 +42,15 @@ jobs:
           git add -A
           git commit -m "artifcat"
           git push
-          mkdir -p first
-          echo hello > first/world.txt
+
+      - run: mkdir -p mydir
+
+      - run: echo hello > mydir/world.txt
 
       - uses: actions/upload-artifact@v2
         with:
           name: my-artifact
-          path: first/world.txt
+          path: mydir/world.txt
 
 
 
