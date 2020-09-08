@@ -67,7 +67,9 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install python Dependencies
-        run: pip3 install setuptools googletrans
+        run: |
+          sudo apt-get install python3-setuptools
+          pip3 install setuptools googletrans
 
       - name: Cache node modules
         uses: actions/cache@v2
