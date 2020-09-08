@@ -24,10 +24,17 @@ jobs:
       - name: Partial clone
         run: |
           REPO="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git clone --filter=blob:none --no-checkout --depth 1  --sparse $REPO
+          git clone --filter=blob:none --no-checkout --depth 1  --sparse $REPO repo
+          cd repo
+          git sparse-checkout init --cone
+          git sparse-checkout add "New folder"
+          git checkout
           ls
-          echo $GITHUB_WORKSPACE
-          echo $GITHUB_REPOSITORY
+          touch abc
+          git add -A
+          git commit -m "hello"
+          git push
+          
           
           
 
