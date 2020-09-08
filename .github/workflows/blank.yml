@@ -58,6 +58,18 @@ jobs:
           name: my-artifact
           path: mydir/world.txt
 
+      - uses: actions/cache@v2
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+            ${{ runner.os }}-
+
+      - name: Install python Dependencies
+        run: pip3 install setuptools
+        run: pip3 install googletrans
+
       - name: Cache node modules
         uses: actions/cache@v2
         env:
@@ -73,14 +85,3 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
-
-      - uses: actions/cache@v2
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
-            ${{ runner.os }}-
-
-      - name: Install python Dependencies
-        run: pip3 install googletrans
