@@ -30,8 +30,8 @@ jobs:
       - name: Partial clone and push
         run: |
           REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
-          git config --global user.email github-actions@github.com
-          git config --global user.name github-actions
+          git config --global user.email "fawazahmed0@hotmail.com"
+          git config --global user.name "Fawaz Ahmed"
           git clone --filter=blob:none --no-checkout --depth 1  --sparse $REPO repo
           cd repo
           git sparse-checkout init --cone
