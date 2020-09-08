@@ -9,7 +9,8 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
-
+  paths:
+    - 'qdata/*'
   
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -34,7 +35,7 @@ jobs:
           git sparse-checkout add "New folder"
           git checkout
           ls
-          touch kamera
+          touch junk
           git add -A
           git commit -m "hello"
           git push
