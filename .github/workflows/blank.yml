@@ -47,7 +47,9 @@ jobs:
 
       - run: echo hello > mydir/world.txt
 
-      - run: pwd
+      - run: |
+          pwd
+          ls
 
       - uses: actions/upload-artifact@v2
         with:
