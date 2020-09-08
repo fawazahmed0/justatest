@@ -28,7 +28,6 @@ jobs:
           git config --global user.name "Fawaz Ahmed"
           git clone --filter=blob:none --no-checkout --depth 1  --sparse $REPO repo
           cd repo
-          git remote set-url origin $REPO
           git sparse-checkout init --cone
           git sparse-checkout add "New folder"
           git checkout
