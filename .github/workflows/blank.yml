@@ -38,6 +38,7 @@ jobs:
           git sparse-checkout add "New folder"
           git checkout
           ls
+          cp -a package.json ../
       # touch trt2
       #  git add -A
       #  git commit -m "artifcat"
