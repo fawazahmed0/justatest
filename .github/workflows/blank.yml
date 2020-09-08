@@ -38,13 +38,13 @@ jobs:
           git sparse-checkout add "New folder"
           git checkout
           ls
-          touch mess
-          git add -A
-          git commit -m "hello"
-          git push
+#          touch mess
+#          git add -A
+#          git commit -m "hello"
+#          git push
           mkdir -p path/to/artifact
           echo hello > path/to/artifact/world.txt
-      
+
       - uses: actions/upload-artifact@v2
         with:
           name: my-artifact
