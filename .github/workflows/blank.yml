@@ -7,12 +7,12 @@ name: CI
 on:
   push:
     branches: [ master ]
- #   paths:
- #   - 'qdata/*'
+    paths:
+    - 'qdata/*'
   pull_request:
     branches: [ master ]
- #   paths:
- #   - 'qdata/*'
+    paths:
+    - 'qdata/*'
 
 
 
@@ -38,7 +38,7 @@ jobs:
           git sparse-checkout add "New folder"
           git checkout
           ls
-          touch toss
+          touch mess
           git add -A
           git commit -m "hello"
           git push
