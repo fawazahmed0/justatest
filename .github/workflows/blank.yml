@@ -9,6 +9,9 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  paths:
+     - 'qdata/*'
+  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -21,7 +24,7 @@ jobs:
     steps:
 
       # Runs a single command using the runners shell
-      - name: Partial clone
+      - name: Partial clone and push
         run: |
           REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
           git config --global user.email github-actions@github.com
@@ -32,7 +35,7 @@ jobs:
           git sparse-checkout add "New folder"
           git checkout
           ls
-          touch sunday
+          touch kamera
           git add -A
           git commit -m "hello"
           git push
