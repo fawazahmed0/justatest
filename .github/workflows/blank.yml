@@ -68,7 +68,7 @@ jobs:
 
       - name: Install python Dependencies
         run: |
-          sudo apt-get install python3-setuptools
+          python3 -m pip install --upgrade setuptools
           pip3 install setuptools googletrans
 
       - name: Cache node modules
