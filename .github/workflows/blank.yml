@@ -32,14 +32,11 @@ jobs:
           REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
           git config --global user.email github-actions@github.com
           git config --global user.name github-actions
-          git clone --filter=blob:none --no-checkout --depth 1  --sparse $REPO repo
-          cd repo
+          git clone --filter=blob:none --no-checkout --depth 1  --sparse $REPO .
           git sparse-checkout init --cone
           git sparse-checkout add "New folder"
           git checkout
           ls
-          cp -a package.json ../
-          cp -a requirements.txt ../
       # touch trt2
       #  git add -A
       #  git commit -m "artifcat"
