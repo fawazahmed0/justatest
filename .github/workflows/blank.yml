@@ -37,8 +37,8 @@ jobs:
           git commit -m "hello"
           git push
         env:
-            NAME=Fawaz Ahmed
-            EMAIL=fawazahmed0@hotmail.com
+            NAME: Fawaz Ahmed
+            EMAIL: fawazahmed0@hotmail.com
           
           
           
