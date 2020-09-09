@@ -21,7 +21,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -35,8 +35,6 @@ jobs:
           git sparse-checkout init --cone
           git sparse-checkout add "New folder"
           git checkout
-          ls
-          bash --version
           git config --global user.email github-actions@github.com
           git config --global user.name github-actions
       # touch trt2
@@ -47,7 +45,12 @@ jobs:
       - run: mkdir -p mydir
         shell: bash
 
+      - run: echo "::set-output name=mycmd::$(head -n 1 requirements.txt)"
+        id: command-val
+        shell: bash
 
+      - run: echo ${{ steps.command-val.outputs.mycmd }}
+        shell: bash
 
       - run: echo hello > mydir/world.txt
         shell: bash
