@@ -56,13 +56,12 @@ jobs:
           name: my-artifact
           path: mydir/world.txt
 
-      - name: Install few python tools
-        run: python3 -m pip install --upgrade pip setuptools wheel
 
       - name: Get cache directories
         id: cache-dir
         shell: bash
         run: |
+          pip3 install --upgrade pip setuptools wheel
           echo "::set-output name=pipcache::$(pip3 cache dir)"
           echo "::set-output name=npmcache::$(npm config get cache)"
 
