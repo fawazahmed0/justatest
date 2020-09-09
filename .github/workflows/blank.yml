@@ -59,7 +59,7 @@ jobs:
           path: mydir/world.txt
 
       - run: echo "this is linux"
-        if: !contains(runner.os, 'linux')
+        if: ${{ ! contains(runner.os, 'linux') }}
         shell: bash
 
       - run: echo ${{ runner.os }}
