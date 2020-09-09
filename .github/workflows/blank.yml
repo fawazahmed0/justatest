@@ -78,7 +78,8 @@ jobs:
       - name: Get npm cache directory
         id: npm-cache
         shell: bash
-        run: echo "::set-output name=test::hello"
+        run: |
+          echo "::set-output name=test::hello"
 
       - run: echo ${{ steps.npm-cache.outputs.test }}
         shell: bash
