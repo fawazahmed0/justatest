@@ -67,7 +67,7 @@ jobs:
         shell: bash
         run: |
           python3 -m pip install --upgrade pip setuptools wheel
-          echo "::set-output name=dir::$(pip cache dir)"
+          echo "::set-output name=dir::$(pip3 cache dir)"
 
       - run: echo ${{ steps.pip-cache.outputs.dir }}
         shell: bash
