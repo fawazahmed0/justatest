@@ -50,68 +50,41 @@ jobs:
       - run: echo hello > mydir/world.txt
         shell: bash
 
-      - shell: bash
-        run: |
-          pwd
-          ls
-
-
 
       - uses: actions/upload-artifact@v2
         with:
           name: my-artifact
           path: mydir/world.txt
 
-      - name: Get pip cache dir
-        id: pip-cache
+      - name: Get cache directories
+        id: cache-dir
         shell: bash
         run: |
           python3 -m pip install --upgrade pip setuptools wheel
-          echo "::set-output name=dir::$(pip3 cache dir)"
-
-      - run: echo ${{ steps.pip-cache.outputs.dir }}
-        shell: bash
+          echo "::set-output name=pipcache::$(pip3 cache dir)"
+          echo "::set-output name=npmcache::$(npm config get cache)"
 
       - uses: actions/cache@v2
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          path: |
+            ${{ steps.cache-dir.outputs.pipcache }}
+            ${{ steps.cache-dir.outputs.npmcache }}
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/package.json') }}-${{ hashFiles('**/requirements.txt') }}
           restore-keys: |
-            ${{ runner.os }}-pip-
-            ${{ runner.os }}-
-
-      - name: Install python Dependencies
-        run: |
-          pip3 install -r requirements.txt
-
-      - name: Get npm cache directory
-        id: npm-cache
-        shell: bash
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-          echo "::set-output name=test::hello"
-          echo  ${{ steps.npm-cache.outputs.test }}
-
-      - run: echo ${{ steps.npm-cache.outputs.dir }}
-        shell: bash
-
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
-
-      - name: Cache node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
+            ${{ runner.os }}-cache-${{ hashFiles('**/package.json') }}
+            ${{ runner.os }}-cache-${{ hashFiles('**/requirements.txt') }}
+            ${{ runner.os }}-cache-
             ${{ runner.os }}-
 
       - name: Install Dependencies
-        run: npm install
+        shell: bash
+        run: |
+          pip3 install -r requirements.txt
+          npm install
+
+
+      - name: Dump steps context
+        shell: bash
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
