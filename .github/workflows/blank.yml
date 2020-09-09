@@ -78,10 +78,15 @@ jobs:
       - name: Get npm cache directory
         id: npm-cache
         shell: bash
-        run: |
-          echo "::set-output name=dir::$(npm config get cache)"
-          echo "::set-output name=test::hello"
-          echo  ${{ steps.npm-cache.outputs.test }}
+        run: echo "::set-output name=test::hello"
+
+      - run: echo ${{ steps.npm-cache.outputs.test }}
+        shell: bash
+
+      - name: Dump steps context
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
 
       - name: Cache node modules
         uses: actions/cache@v2
