@@ -61,9 +61,10 @@ jobs:
         id: cache-dir
         shell: bash
         run: |
+          echo "::set-output name=npmcache::$(npm config get cache)"
+          
       #    pip3 install --upgrade pip setuptools wheel
       #    echo "::set-output name=pipcache::$(pip3 cache dir)"
-          echo "::set-output name=npmcache::$(npm config get cache)"
 
       - name: Dump steps context
         shell: bash
