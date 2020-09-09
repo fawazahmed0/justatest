@@ -75,6 +75,13 @@ jobs:
           python3 -m pip install --upgrade pip setuptools wheel
           pip3 install -r requirements.txt
 
+      - name: Get npm cache directory
+        id: npm-cache
+        shell: bash
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+          echo ${{ steps.npm-cache.outputs.dir}}
+
       - name: Cache node modules
         uses: actions/cache@v2
         env:
