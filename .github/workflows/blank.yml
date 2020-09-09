@@ -80,7 +80,7 @@ jobs:
         shell: bash
         run: |
           echo "::set-output name=dir::$(npm config get cache)"
-          echo ${{ steps.npm-cache.outputs.dir}}
+          npm config get cache
 
       - name: Cache node modules
         uses: actions/cache@v2
