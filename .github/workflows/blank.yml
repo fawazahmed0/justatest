@@ -58,18 +58,19 @@ jobs:
           name: my-artifact
           path: mydir/world.txt
 
-      - run: echo "this is linux"
-        if: ${{ ! contains(runner.os, 'linux') }}
+      - run: python3 -m pip install --upgrade pip setuptools wheel
+        if: ${{ ! contains(runner.os, 'windows') }}
         shell: bash
 
-      - run: echo ${{ runner.os }}
+      - run: py -3 -m pip install --upgrade pip setuptools wheel
+        if: ${{ contains(runner.os, 'windows') }}
         shell: bash
+
 
       - name: Get cache directories
         id: cache-dir
         shell: bash
         run: |
-          python3 -m pip install --upgrade pip setuptools wheel
           echo "::set-output name=pipcache::$(pip3 cache dir)"
           echo "::set-output name=npmcache::$(npm config get cache)"
 
