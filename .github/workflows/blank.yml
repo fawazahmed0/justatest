@@ -47,6 +47,8 @@ jobs:
       - run: mkdir -p mydir
         shell: bash
 
+
+
       - run: echo hello > mydir/world.txt
         shell: bash
 
@@ -56,6 +58,12 @@ jobs:
           name: my-artifact
           path: mydir/world.txt
 
+      - run: echo "this is linux"
+        if: if: contains(runner.os, 'linux')
+        shell: bash
+
+      - run: echo ${{ runner.os }}
+        shell: bash
 
       - name: Get cache directories
         id: cache-dir
