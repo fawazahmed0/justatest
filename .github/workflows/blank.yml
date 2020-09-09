@@ -62,6 +62,15 @@ jobs:
           name: my-artifact
           path: mydir/world.txt
 
+      - name: Get pip cache dir
+        id: pip-cache
+        shell: bash
+        run: |
+          echo "::set-output name=dir::$(pip cache dir)"
+
+      - run: echo ${{ steps.pip-cache.outputs.dir }}
+        shell: bash
+        
       - uses: actions/cache@v2
         with:
           path: ~/.cache/pip
