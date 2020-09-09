@@ -21,7 +21,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -61,10 +61,10 @@ jobs:
         id: cache-dir
         shell: bash
         run: |
+          pip3 install --upgrade pip setuptools wheel
+          echo "::set-output name=pipcache::$(pip3 cache dir)"
           echo "::set-output name=npmcache::$(npm config get cache)"
-          
-      #    pip3 install --upgrade pip setuptools wheel
-      #    echo "::set-output name=pipcache::$(pip3 cache dir)"
+
 
       - name: Dump steps context
         shell: bash
