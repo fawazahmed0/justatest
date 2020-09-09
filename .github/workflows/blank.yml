@@ -56,13 +56,21 @@ jobs:
           name: my-artifact
           path: mydir/world.txt
 
+      - name: Install few python tools
+        run: python3 -m pip install --upgrade pip setuptools wheel
+
       - name: Get cache directories
         id: cache-dir
         shell: bash
         run: |
-          python3 -m pip install --upgrade pip setuptools wheel
           echo "::set-output name=pipcache::$(pip3 cache dir)"
           echo "::set-output name=npmcache::$(npm config get cache)"
+
+      - name: Dump steps context
+        shell: bash
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
 
       - uses: actions/cache@v2
         with:
@@ -77,14 +85,6 @@ jobs:
             ${{ runner.os }}-
 
       - name: Install Dependencies
-        shell: bash
         run: |
           pip3 install -r requirements.txt
           npm install
-
-
-      - name: Dump steps context
-        shell: bash
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
