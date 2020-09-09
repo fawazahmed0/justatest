@@ -7,12 +7,12 @@ name: CI
 on:
   push:
     branches: [ master ]
-    paths:
-    - 'qdata/*'
+    # paths:
+    # - 'qdata/*'
   pull_request:
     branches: [ master ]
-    paths:
-    - 'qdata/*'
+    #paths:
+    #- 'qdata/*'
 
 
 
@@ -28,6 +28,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Partial clone and push
+        shell: bash
         run: |
           REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
           git config --global user.email github-actions@github.com
@@ -37,6 +38,7 @@ jobs:
           git sparse-checkout add "New folder"
           git checkout
           ls
+          bash --version
       # touch trt2
       #  git add -A
       #  git commit -m "artifcat"
