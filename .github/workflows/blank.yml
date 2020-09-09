@@ -83,7 +83,7 @@ jobs:
           echo "::set-output name=test::hello"
           echo  ${{ steps.npm-cache.outputs.test }}
 
-      - run: echo ${{ steps.npm-cache.outputs.test }}
+      - run: echo ${{ steps.npm-cache.outputs.dir }}
         shell: bash
 
       - name: Dump steps context
