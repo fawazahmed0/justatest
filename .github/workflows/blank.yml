@@ -45,12 +45,17 @@ jobs:
       - run: mkdir -p mydir
         shell: bash
 
-      - run: echo "::set-output name=mycmd::$(head -n 1 requirements.txt)"
-        id: command-val
-        shell: bash
 
-      - run: echo ${{ steps.command-val.outputs.mycmd }}
+      - id: command-val
         shell: bash
+        run: |
+          echo "::set-output name=mycmd::$(head -n 1 requirements.txt)"
+          echo "::set-output name=myargs::$(head -n 2 requirements.txt | tail -n 1)"
+
+      - shell: bash
+        run: |
+          echo ${{ steps.command-val.outputs.mycmd }}
+          echo ${{ steps.command-val.outputs.myargs }}
 
       - run: echo hello > mydir/world.txt
         shell: bash
