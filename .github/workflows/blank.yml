@@ -26,6 +26,35 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
+      - if: ${{ github.event_name != 'workflow_dispatch' }}
+        shell: bash
+        run: |
+          echo "::set-output name=mycmd::hello"
+          echo "::set-env name=action_state::yellow"
+
+      - shell: bash
+        run: |
+          echo ${{ env.action_state }}
+          echo ${{ action_state }}
+
+
+
+      - if: ${{ github.event_name != 'workflow_dispatch' }}
+        shell: bash
+        run: |
+          echo "::set-output name=mycmd::hello"
+
+      - shell: bash
+        run: |
+          echo ${{ steps.command-val.outputs.mycmd }}
+
+
+      - shell: bash
+        run: |
+          echo ${{ steps.outputs.mycmd }}
+
+
+
       # Runs a single command using the runners shell
       - name: Partial clone and push
         shell: bash
