@@ -34,6 +34,8 @@ jobs:
           echo ${{ env.action_state }}
           echo ${{ github.head_ref }}
           echo ${{ github.base_ref }}
+          echo ${{ github.event.pull_request.head.sha }}
+          echo ${{ github.event.pull_request.head.ref }}
 
 
 
