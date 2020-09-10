@@ -134,3 +134,6 @@ jobs:
         run: |
           pip3 install -r requirements.txt
           npm install
+
+      - name: Run command
+        run: node checkpy.js
