@@ -35,7 +35,7 @@ jobs:
       - shell: bash
         run: |
           echo ${{ env.action_state }}
-          echo ${{ action_state }}
+
 
 
 
