@@ -35,6 +35,8 @@ jobs:
       - shell: bash
         run: |
           echo ${{ env.action_state }}
+          echo ${{ github.head_ref }}
+          echo ${{ github.base_ref }}
 
 
 
