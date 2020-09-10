@@ -36,8 +36,7 @@ jobs:
           echo ${{ github.base_ref }}
           echo ${{ github.event.pull_request.head.sha }}
           echo ${{ github.event.pull_request.head.ref }}
-          echo ${{ GITHUB_REF }}
-          echo ${{ GITHUB_SHA }}
+
 
 
 
