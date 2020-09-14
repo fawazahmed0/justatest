@@ -9,4 +9,4 @@ sys.stdout.reconfigure(encoding='utf-8')
 print("hello")
 
 
-json.dumps(vars(translator.translate('안녕하세요.')), sys.stdout)
+sys.stdout.write(json.dumps(vars(translator.translate('안녕하세요.'))))
