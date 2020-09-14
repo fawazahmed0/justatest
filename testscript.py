@@ -1,3 +1,5 @@
 import sys
-print("Python version Hello world")
-print (sys.version)
+
+from googletrans import Translator
+translator = Translator()
+print(vars(translator.translate('안녕하세요.')))

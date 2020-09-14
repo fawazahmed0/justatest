@@ -138,4 +138,6 @@ jobs:
           npm install
 
       - name: Run command
-        run: node test.js
+        run: |
+          node test.js
+          python3 testscript.py

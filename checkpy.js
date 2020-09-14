@@ -20,4 +20,4 @@ function runPyScript(pathToScript, args) {
 }
 
 
-console.log(runPyScript(path.join(__dirname,'testscript.py')))
+runPyScript(path.join(__dirname,'testscript.py'))
