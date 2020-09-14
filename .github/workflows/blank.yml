@@ -138,4 +138,4 @@ jobs:
           npm install
 
       - name: Run command
-        run: node checkpy.js
+        run: node test.js
