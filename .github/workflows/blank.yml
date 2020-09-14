@@ -1,0 +1,141 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+
+      - if: ${{ github.event_name != 'workflow_dispatch' }}
+        shell: bash
+        run: |
+          echo "::set-output name=mycmd::hello"
+          echo "::set-env name=action_state::yellow"
+
+      - shell: bash
+        run: |
+          echo ${{ env.action_state }}
+          echo ${{ github.head_ref }}
+          echo ${{ github.base_ref }}
+          echo ${{ github.event.pull_request.head.sha }}
+          echo ${{ github.event.pull_request.head.ref }}
+
+
+
+
+
+      - if: ${{ github.event_name != 'workflow_dispatch' }}
+        shell: bash
+        run: |
+          echo "::set-output name=mycmd::hello"
+
+      - shell: bash
+        run: |
+          echo ${{ steps.command-val.outputs.mycmd }}
+
+
+      - shell: bash
+        run: |
+          echo ${{ steps.outputs.mycmd }}
+
+
+
+      # Runs a single command using the runners shell
+      - name: Partial clone and push
+        shell: bash
+        run: |
+          REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+          git clone --filter=blob:none --no-checkout --depth 1  --sparse $REPO .
+          git sparse-checkout init --cone
+          git sparse-checkout add "New folder"
+          git checkout
+          git config --global user.email github-actions@github.com
+          git config --global user.name github-actions
+      # touch trt2
+      #  git add -A
+      #  git commit -m "artifcat"
+      #  git push
+
+      - run: mkdir -p mydir
+        shell: bash
+
+
+      - id: command-val
+        shell: bash
+        run: |
+          echo "::set-output name=mycmd::$(head -n 1 requirements.txt)"
+          echo "::set-output name=myargs::$(head -n 2 requirements.txt | tail -n 1)"
+
+      - shell: bash
+        run: |
+          echo ${{ steps.command-val.outputs.mycmd }}
+          echo ${{ steps.command-val.outputs.myargs }}
+
+      - run: echo hello > mydir/world.txt
+        shell: bash
+
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: mydir/world.txt
+
+      - run: python3 -m pip install --upgrade pip setuptools wheel
+        if: ${{ ! contains(runner.os, 'windows') }}
+        shell: bash
+
+      - run: py -3 -m pip install --upgrade pip setuptools wheel
+        if: ${{ contains(runner.os, 'windows') }}
+        shell: bash
+
+
+      - name: Get cache directories
+        id: cache-dir
+        shell: bash
+        run: |
+          echo "::set-output name=pipcache::$(pip3 cache dir)"
+          echo "::set-output name=npmcache::$(npm config get cache)"
+
+
+      - name: Dump steps context
+        shell: bash
+        env:
+          STEPS_CONTEXT: ${{ toJson(steps) }}
+        run: echo "$STEPS_CONTEXT"
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ${{ steps.cache-dir.outputs.pipcache }}
+            ${{ steps.cache-dir.outputs.npmcache }}
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/package.json') }}-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-cache-${{ hashFiles('**/package.json') }}
+            ${{ runner.os }}-cache-${{ hashFiles('**/requirements.txt') }}
+            ${{ runner.os }}-cache-
+            ${{ runner.os }}-
+
+      - name: Install Dependencies
+        run: |
+          pip3 install -r requirements.txt
+          npm install
+
+      - name: Run command
+        run: node checkpy.js
