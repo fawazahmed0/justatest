@@ -6,7 +6,7 @@ translator = Translator()
 # https://stackoverflow.com/a/52372390
 sys.stdout.reconfigure(encoding='utf-8')
 
-print("hello")
+print("hello from python")
 
 
 sys.stdout.write(json.dumps(vars(translator.translate('안녕하세요.'))))

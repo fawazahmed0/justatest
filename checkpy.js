@@ -19,5 +19,5 @@ function runPyScript(pathToScript, args) {
   return output.stdout.toString();
 }
 
-
+console.log("hello from node")
 console.log(runPyScript(path.join(__dirname,'testscript.py')))
