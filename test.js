@@ -2,7 +2,7 @@ const {firefox} = require('playwright');
 
 (async () => {
 
-    const browser = await firefox.launch({ headless: false});
+    const browser = await firefox.launch();
     const context = await browser.newContext();
     const page = await context.newPage();
     await page.goto('https://translate.google.com');
