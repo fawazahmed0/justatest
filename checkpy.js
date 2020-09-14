@@ -20,4 +20,5 @@ function runPyScript(pathToScript, args) {
 }
 
 console.log("hello from node")
-console.log(runPyScript(path.join(__dirname,'testscript.py')))
+val = runPyScript(path.join(__dirname,'testscript.py'))
+console.log(val)

@@ -4,7 +4,8 @@ import json
 from googletrans import Translator
 translator = Translator()
 # https://stackoverflow.com/a/52372390
-sys.stdout.reconfigure(encoding='utf-8')
+# no need to set to utf-8 it's default in python 3.6+
+#sys.stdout.reconfigure(encoding='utf-8')
 
 print("hello from python")
 
