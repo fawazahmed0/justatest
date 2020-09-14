@@ -7,7 +7,8 @@ translator = Translator()
 # no need to set to utf-8 it's default in python 3.6+
 #sys.stdout.reconfigure(encoding='utf-8')
 
-print("hello from python")
 
 
+sys.stdout.write('[')
 sys.stdout.write(json.dumps(vars(translator.translate('안녕하세요.'))))
+sys.stdout.write(']')
