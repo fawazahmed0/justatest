@@ -22,5 +22,5 @@ function runPyScript(pathToScript, args) {
 console.log("hello from node")
 val = runPyScript(path.join(__dirname,'testscript.py'))
 console.log(val)
-console.log("stringified")
+console.log("stringifiedd")
 console.log(JSON.stringify(JSON.parse(val)))
